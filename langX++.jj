@@ -1,10 +1,11 @@
 /*************************************************************************
 Arquivo a ser processado pelo programa JavaCC.
 Contém:
-       - descrição do analisador léxico para a linguagem X++ 
-       - descrição do analisador sintático para a linguagem X++
+       - descrição do analisador léxico para a linguagem X+++
+       - descrição do analisador sintático para a linguagem X+++
 
-Autor: Marcio Delamaro
+Autorers: Leonardo Marchado, Marco Antonio e Rafael Juda 
+Baseado no trabalho Marcio Delamaro
 Este programa é parte do livro "Construção de compiladores usando ferra..."
 ************************************************************************/
 options {
@@ -166,6 +167,11 @@ TOKEN :
 | < CHAR: "char" >
 | < BOOLEAN: "boolean" >
 | < DOUBLE: "double" >
+| < WHILE: "while" >
+| < DO: "do" >
+| < SWITCH: "switch" >
+| < CASE: "case" >
+| < DEFAULTCASE: "default" >
 }
 
 /* constantes */
@@ -221,6 +227,7 @@ TOKEN :
 | < LBRACKET: "[" >
 | < RBRACKET: "]" >
 | < SEMICOLON: ";" >
+| <COLON: ":" >
 | < COMMA: "," >
 | < DOT: "." >
 }
@@ -454,6 +461,47 @@ void forstat():
                    [expression()] <SEMICOLON>
                    [atribstat()] <RPAREN>
                     statement()
+}
+
+void whileStat():
+{
+}
+{
+    <WHILE> <LPAREN> [atribstat()] <SEMICOLON>
+                   [expression()] <SEMICOLON>
+                   [atribstat()] <RPAREN>
+                    statement()
+}
+
+void doWhileStat():
+{
+}
+{
+    <DO>  statement() <LPAREN> [atribstat()] <SEMICOLON>
+                   [expression()] <SEMICOLON>
+                   [atribstat()] <RPAREN>                   
+}
+
+void switchStat():
+{
+}
+{
+    <WHILE> <LPAREN> <IDENT> <RPAREN> <LBRACE> 
+    
+	switchCasesStat()
+	
+    <RBRACE>
+    
+}
+
+void switchCasesStat():
+{
+}
+{
+    [ <CASE> factor() | <DEFAULTCASE> ] <COLON>
+    
+	statement()
+    
 }
 
 void  statlist() :
