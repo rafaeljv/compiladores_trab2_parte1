@@ -4,7 +4,7 @@ Contém:
        - descrição do analisador léxico para a linguagem X++ 
        - descrição do analisador sintático para a linguagem X++
        - recuperação de erros sintáticos
-       
+
 Autor: Marcio Delamaro
 Este programa é parte do livro "Construção de compiladores usando ferra..."
 ************************************************************************/
@@ -30,7 +30,7 @@ Token lastError = null;
 // Define o método "main" da classe langX.  
   public  static void main(String args[]) throws ParseException 
   {
-  boolean debug as = false;
+  boolean debug_as = false;
   boolean debug_recovery = false;
 
     String filename = ""; // nome do arquivo a ser analisado
@@ -504,7 +504,7 @@ try {
 |
     readstat(f1) <SEMICOLON>
 |
-    returnstatf1) <SEMICOLON>
+    returnstat(f1) <SEMICOLON>
 |
     superstat(f1) <SEMICOLON>
 |
@@ -695,11 +695,11 @@ catch (ParseException e)
 
 void switchcasesstat(RecoverySet g) throws ParseEOFException :
 {
-RecoverySet f1 = new RecoverySet(COLON).union(g)
+RecoverySet f1 = new RecoverySet(COLON).union(g);
 }
 {
 try {
-    [ <CASE> factor(f1) | <DEFAULTCASE> ] <COLON>
+    [ <CASE> factor() | <DEFAULTCASE> ] <COLON>
     
 	statement(g)
     
